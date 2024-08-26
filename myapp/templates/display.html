@@ -1,0 +1,403 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa; /* Light background for better contrast */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #343a40; /* Dark gray for header */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: #495057; /* Slightly lighter gray on hover */
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #343a40; /* Dark gray for footer */
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #007BFF; /* Blue for footer links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #ffffff; /* White background for container */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px; /* Adjusted for consistent max-width */
+            box-sizing: border-box;
+            margin: 80px auto 80px; /* Center container and adjust margin-top and margin-bottom to avoid overlap with fixed header and footer */
+            text-align: center;
+        }
+
+        .container h1 {
+            margin-top: 0;
+            color: #343a40; /* Dark gray for headings */
+        }
+
+        .container p {
+            color: #555; /* Medium gray for text */
+        }
+
+        /* Table Container Styling */
+        .table-container {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            margin-bottom: 20px; /* Space below the table */
+        }
+
+        /* Table Styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6; /* Light gray border */
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8f9fa; /* Light gray background for headers */
+            font-weight: bold;
+            color: #343a40; /* Dark gray for header text */
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a, .pagination span {
+            margin: 0 5px;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 1px solid #dee2e6; /* Light gray border */
+            color: #343a40; /* Dark gray for pagination links */
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a {
+            background-color: #007BFF; /* Primary color for active links */
+            color: white;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .pagination span {
+            background-color: #f8f9fa; /* Light gray background for inactive pagination */
+            color: #6c757d; /* Medium gray for inactive pagination text */
+        }
+
+        /* Pop-up Modal Styling */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+            color: #343a40;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group input[type="text"], .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da; /* Light gray border for input fields */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .popup button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background-color: #dc3545; /* Red for close button */
+        }
+
+        .close-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        /* Button Styling */
+        .button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF; /* Primary color for buttons */
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 60px; /* Adjust top margin for smaller screens */
+                margin-bottom: 60px; /* Adjust bottom margin for smaller screens */
+            }
+            .table-container {
+                overflow-x: auto; /* Enable horizontal scrolling on mobile */
+            }
+            table {
+                width: 100%; /* Ensure table fills the available width on mobile */
+            }
+            th, td {
+                padding: 8px 12px; /* Reduce padding for better mobile display */
+            }
+            .pagination a, .pagination span {
+                padding: 6px 10px; /* Reduce padding for pagination on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+        <span class="welcome">Welcome, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}">Log out</a>
+        {% else %}
+            <a href="{% url 'login' %}">Log in</a>
+            <a href="{% url 'signup' %}">Sign up</a>
+        {% endif %}
+    </header>     
+    <div class="container">
+        <h1>CSV Data Table</h1>
+
+        <!-- Table Container with Horizontal Scrolling -->
+        <div class="table-container">
+            {% if html_table %}
+                {{ html_table|safe }}
+            {% endif %}
+        </div>
+
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th> <!-- Row index column -->
+                        {% for header in headers %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ forloop.counter0|add:start_index }}</td> <!-- Continuous row index value -->
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>    
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <button class="button" onclick="showPopup('add-column-popup')">Add New Column</button>
+            <button class="button" onclick="showPopup('add-row-popup')">Add New Row</button>
+            <button class="button" onclick="showPopup('edit-row-popup')">Edit Row</button>
+            <!-- Download CSV Button aligned with other buttons -->
+            <a href="{% url 'download_csv' %}" class="button">Download CSV</a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Add Column Popup -->
+    <div id="add-column-popup" class="popup">
+        <h3>Add New Column</h3>
+        <form method="post" action="{% url 'add_column' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="column_name">Column Name:</label>
+                <input type="text" id="column_name" name="column_name" placeholder="Enter new column name" required>
+            </div>
+            <button type="submit" class="button">Add Column</button>
+            <button type="button" class="close-btn button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Add Row Popup -->
+    <div id="add-row-popup" class="popup">
+        <h3>Add New Row</h3>
+        <form method="post" action="{% url 'add_row' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="new_row">Row Data:</label>
+                <input type="text" id="new_row" name="new_row" placeholder="Enter comma-separated values" required>
+            </div>
+            <button type="submit" class="button">Add Row</button>
+            <button type="button" class="close-btn button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Edit Row Popup -->
+    <div id="edit-row-popup" class="popup">
+        <h3>Edit Row</h3>
+        <form id="edit-row-form" method="post" action="{% url 'edit_row' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="row_index">Row Index:</label>
+                <input type="number" id="row_index" name="row_index" placeholder="Enter row number" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="updated_values">Updated Data:</label>
+                <input type="text" id="updated_values" name="updated_values" placeholder="Enter comma-separated new values" required>
+            </div>
+            <button type="submit" class="button">Edit Row</button>
+            <button type="button" class="close-btn button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to show a specific popup
+        function showPopup(popupId) {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById(popupId).style.display = 'block';
+        }
+
+        // Function to close all popups
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            const popups = document.querySelectorAll('.popup');
+            popups.forEach(function(popup) {
+                popup.style.display = 'none';
+            });
+        }
+
+        // Close popup when clicking outside of it
+        window.onclick = function(event) {
+            const overlay = document.getElementById('overlay');
+            if (event.target == overlay) {
+                closePopup();
+            }
+        }
+    </script>
+    <footer>
+        <p>&copy; 2024 CSV Management System. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>   
+</body>
+</html>

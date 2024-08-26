@@ -1,0 +1,215 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - CSV Management System</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8; /* Light gray background for subtle contrast */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            color: #343a40; /* Dark gray text */
+        }
+
+        header {
+            background-color: #343a40; /* Dark gray for header */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: #495057; /* Slightly lighter gray on hover */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 80px 0 20px; /* Increased top margin for spacing */
+            text-align: center;
+            color: #343a40; /* Dark gray for heading */
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff; /* White background for the form */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #343a40; /* Dark gray label text */
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc; /* Light border for input fields */
+            border-radius: 5px;
+            background-color: #ffffff; /* White background for input fields */
+            color: #343a40; /* Dark gray text color for input fields */
+            box-sizing: border-box;
+        }
+
+        .form-group input::placeholder {
+            color: #999; /* Placeholder text color */
+            font-size: 12px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #666; /* Medium gray for hint text */
+            margin-top: 5px;
+        }
+
+        form button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745; /* Green for buttons */
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        form button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        footer {
+            background-color: #343a40; /* Dark gray for footer */
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #007BFF; /* Blue for footer links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* Smaller font size for mobile */
+            }
+            p {
+                font-size: 1rem; /* Smaller font size for mobile */
+            }
+            header nav {
+                flex-direction: column; /* Stack links on mobile */
+                gap: 10px;
+            }
+            header a {
+                padding: 8px 15px; /* Smaller padding for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'login' %}">Login</a>
+        </nav>
+    </header>
+
+    <h1>Signup</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username|add_class:"form-control" }}
+            <div class="form-hint">150 characters max. Use letters, digits, and @/./+/-/_ only.</div>
+        </div>
+
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1|add_class:"form-control" }}
+            <div class="form-hint">Min 8 characters. Avoid common or numeric passwords.</div>
+        </div>
+
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2|add_class:"form-control" }}
+            <div class="form-hint">Re-enter your password for verification.</div>
+        </div>
+
+        <button type="submit">Signup</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}"> Login here</a></p>
+
+    <footer>
+        <p>&copy; 2024 CSV Management System. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - CSVPal</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8; /* Light gray background for subtle contrast */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #343a40; /* Dark gray for header */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Align items vertically in the center */
+            gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: #495057; /* Slightly lighter gray on hover */
+        }
+
+        .welcome {
+            font-size: 16px;
+            color: white;
+            margin-right: 20px; /* Space between the username and the "Log out" link */
+        }
+
+        .hero {
+            background-color: #ffffff; /* White for hero section */
+            color: #343a40; /* Dark gray text */
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 70px; /* To avoid overlap with the fixed header */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem; /* Responsive font size */
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem; /* Responsive font size */
+            margin-bottom: 30px;
+            color: #6c757d; /* Medium gray text */
+        }
+
+        .button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745; /* Green for buttons */
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        footer {
+            background-color: #343a40; /* Dark gray for footer */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #007BFF; /* Blue for footer links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background-color: #ffffff; /* White background for container */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            margin: 20px auto; /* Centered container */
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-top: 0;
+            color: #343a40; /* Dark gray for headings */
+            font-weight: 600;
+        }
+
+        .container p {
+            color: #6c757d; /* Medium gray for text */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem; /* Smaller font size for mobile */
+            }
+
+            .hero p {
+                font-size: 1rem; /* Smaller font size for mobile */
+            }
+
+            header nav {
+                flex-direction: column; /* Stack links on mobile */
+                gap: 10px;
+            }
+
+            header a {
+                padding: 8px 15px; /* Smaller padding for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            {% if user.is_authenticated %}
+                <span class="welcome">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}">Log out</a>
+                <a href="{% url 'upload_csv' %}">Upload</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Signup</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Welcome to CSVPal</h1>
+        <p>Effortlessly upload, manage, and manipulate CSV files with an intuitive interface.</p>
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'upload_csv' %}" class="button">Upload</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="button">Login</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CSVPal. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
