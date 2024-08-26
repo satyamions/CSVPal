@@ -2,6 +2,14 @@
 
 CSVPal is a Django-based web application that allows users to log in, sign up, upload CSV files, and manage the data within a user-friendly interface. Users can view, update, insert new rows, and export the latest data as CSV files. The app also supports adding new columns, storing them in the database, and provides APIs for login, signup, and CSV upload.
 
+## CSVPal Video Demo
+
+**Part 1: Web Interface**  
+[Watch the demo](https://drive.google.com/file/d/1s0o2fOTYATNC2PTT9710CJ1D4kiboFgq/view?usp=sharing) to see the web interface in action, including user authentication, CSV file uploads, data management, and export functionality.
+
+**Part 2: API Showcase**  
+[Watch the demo](https://drive.google.com/file/d/1jkP0utEgdiv7L8e9rvkYMLZwYPsez2yo/view?usp=sharing) to explore the API endpoints for login, signup, and CSV file uploads.
+
 ## Table of Contents
 
 - [Features](#features)
