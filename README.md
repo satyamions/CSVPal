@@ -122,7 +122,7 @@ CSVPal/
 
 ## Testing the Application
 
-### Python Shell
+### 0. Using Python Shell
 
 ```python
 python manage.py shell
