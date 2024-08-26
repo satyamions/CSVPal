@@ -228,30 +228,6 @@ After uploading a CSV file, you can view and manage the data through the web int
 
 ### 4. Troubleshooting
 
-If you encounter issues with SSL certificates or other errors, follow these steps:
-
-1. **Install `certifi`**:
-
-    ```bash
-    pip install certifi --trusted-host pypi.org --trusted-host files.pythonhosted.org
-    ```
-
-2. **Check the Certificate Path**:
-
-    ```python
-    import certifi
-    print(certifi.where())
-    ```
-
-3. **Set the Environment Variable**:
-    - On Windows PowerShell:
-
-      ```bash
-      $env:REQUESTS_CA_BUNDLE=""
-      ```
-
-## Troubleshooting
-
 If you encounter issues with SSL certificates when installing dependencies, you can resolve them by following these steps:
 
 1. Install `certifi` using pip with trusted hosts:
