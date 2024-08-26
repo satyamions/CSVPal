@@ -122,6 +122,11 @@ CSVPal/
 
 ## Testing the Application
 
+### Python Shell
+
+```python
+python manage.py shell
+
 ### 1. Testing Login, Signup, and Logout with Django Test Client
 
 You can use Django's test client to test the login, signup, and logout functionality. Here’s an example script to perform these actions:
