@@ -37,7 +37,7 @@ CSVPal/
 │   ├── apps.py           # App configuration
 │   ├── forms.py          # Forms used in the app
 │   ├── models.py         # Database models
-│   ├── serializers.py    # Serializers for REST API (if applicable)
+│   ├── serializers.py    # Serializers for REST API 
 │   ├── tests.py          # Unit tests
 │   ├── views.py          # Views handling the logic
 │   ├── migrations/       # Database migrations
@@ -98,20 +98,3 @@ CSVPal/
 - **Authentication**: Users can sign up, log in, and log out.
 - **CSV Upload**: Authenticated users can upload CSV files.
 - **View and Manage**: Uploaded CSV files can be viewed and managed through the web interface.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository.
-2. Create a new branch.
-3. Make your changes.
-4. Submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-This README file covers the basic aspects of your project, including setup, usage, and contribution guidelines. You can adjust the content as needed based on your specific requirements.
