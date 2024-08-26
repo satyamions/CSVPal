@@ -120,6 +120,124 @@ CSVPal/
 - **Signup:** **POST** `/api/signup/`
 - **Upload CSV:** **POST** `/api/upload/`
 
+## Testing the Application
+
+### 1. Testing Login, Signup, and Logout with Django Test Client
+
+You can use Django's test client to test the login, signup, and logout functionality. Here’s an example script to perform these actions:
+
+```python
+from django.test import Client
+
+# Initialize the Django test client
+client = Client()
+
+# Signup a new user
+response = client.post('/api/signup/', {
+    'username': 'testusernew24',
+    'password': 'testpass',
+    'email': 'testuser@example24.com'
+}, content_type='application/json')
+print("Signup Status Code:", response.status_code)
+print("Signup Response:", response.content)
+
+# Login with the new user
+response = client.post('/api/login/', {
+    'username': 'testusernew24',
+    'password': 'testpass'
+}, content_type='application/json')
+print("Login Status Code:", response.status_code)
+print("Login Response:", response.content)
+
+# Logout the user
+response = client.post('/api/logout/', content_type='application/json')
+print("Logout Status Code:", response.status_code)
+print("Logout Response:", response.content)
+```
+
+### 2. Testing CSV Upload Using Postman
+
+To test the CSV upload functionality, follow these steps:
+
+1. **Prepare the CSV File**: Create a CSV file (e.g., `test_data.csv`) with sample data. For example:
+
+    ```csv
+    Column1,Column2,Column3
+    Value1,Value2,Value3
+    Value4,Value5,Value6
+    ```
+
+2. **Open Postman**: Launch Postman on your machine.
+
+3. **Configure the Request**:
+    - **HTTP Method**: Select `POST`.
+    - **Request URL**: Enter `http://127.0.0.1:8000/api/upload/`.
+    - **Body**:
+      - Select `form-data`.
+      - Add a new key with the name `file`.
+      - Set the type to `File`.
+      - Click `Select Files` and choose your CSV file (`test_data.csv`).
+
+4. **Send the Request**: Click the `Send` button.
+
+5. **Verify the Response**:
+    - **Status Code**: Ensure it’s `200 OK` or `201 Created`.
+    - **Response Body**: Check for the confirmation message or expected result.
+
+**Example Postman Configuration**:
+
+- **HTTP Method**: `POST`
+- **Request URL**: `http://127.0.0.1:8000/api/upload/`
+- **Body**:
+  - **Type**: `form-data`
+  - **Key**: `file`
+  - **Value**: `Select Files` (choose `test_data.csv`)
+
+**Example Response**:
+
+```json
+{
+    "message": "CSV file uploaded successfully.",
+    "data": {
+        "file_name": "test_data.csv",
+        "rows_uploaded": 2
+    }
+}
+```
+
+### 3. Testing CSV Data Management
+
+After uploading a CSV file, you can view and manage the data through the web interface. This includes:
+
+- **Viewing Data**: Navigate to the page where the uploaded CSV data is displayed.
+- **Updating Rows**: Edit existing rows in the table.
+- **Inserting New Rows**: Add new rows to the table.
+- **Exporting Data**: Use the "Export" button to download the latest data as a CSV file.
+
+### 4. Troubleshooting
+
+If you encounter issues with SSL certificates or other errors, follow these steps:
+
+1. **Install `certifi`**:
+
+    ```bash
+    pip install certifi --trusted-host pypi.org --trusted-host files.pythonhosted.org
+    ```
+
+2. **Check the Certificate Path**:
+
+    ```python
+    import certifi
+    print(certifi.where())
+    ```
+
+3. **Set the Environment Variable**:
+    - On Windows PowerShell:
+
+      ```bash
+      $env:REQUESTS_CA_BUNDLE=""
+      ```
+
 ## Troubleshooting
 
 If you encounter issues with SSL certificates when installing dependencies, you can resolve them by following these steps:
