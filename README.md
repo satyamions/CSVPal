@@ -93,18 +93,18 @@ CSVPal/
 
     Open your browser and go to `http://127.0.0.1:8000/`.
 
-Usage
+## Usage
 
-    Web Interface
-    Sign Up/Login: Sign up or log in to access the application.
-    Upload CSV: Upload a CSV file using the "Upload" button.
-    Manage Data: View the CSV data in a table. You can update existing rows or insert new ones.
-    Export CSV: Click the "Export" button to download the updated CSV file.
-    
-    API Endpoints
-    Login: POST /api/login/
-    Signup: POST /api/signup/
-    Upload CSV: POST /api/upload/
+### Web Interface
+- **Sign Up/Login:** Sign up or log in to access the application.
+- **Upload CSV:** Upload a CSV file using the "Upload" button.
+- **Manage Data:** View the CSV data in a table. You can update existing rows or insert new ones.
+- **Export CSV:** Click the "Export" button to download the updated CSV file.
+
+### API Endpoints
+- **Login:** **POST** `/api/login/`
+- **Signup:** **POST** `/api/signup/`
+- **Upload CSV:** **POST** `/api/upload/`
 
 ## Troubleshooting
 
