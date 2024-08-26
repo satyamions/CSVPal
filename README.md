@@ -136,7 +136,7 @@ If you encounter issues with SSL certificates when installing dependencies, you 
     - On Windows PowerShell:
 
       ```bash
-      $env:REQUESTS_CA_BUNDLE=""
+      $env:REQUESTS_CA_BUNDLE="(response fromm print(certifi.where())"
       ```
 
 This should resolve any SSL-related errors you might encounter during setup.
