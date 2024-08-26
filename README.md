@@ -85,19 +85,25 @@ CSVPal/
     pip install -r requirements.txt
     ```
 
-4. **Apply migrations**:
+4. **Make migrations**:
+
+    ```bash
+    python manage.py makemigrations
+    ```
+
+5. **Apply migrations**:
 
     ```bash
     python manage.py migrate
     ```
 
-5. **Run the development server**:
+6. **Run the development server**:
 
     ```bash
     python manage.py runserver
     ```
 
-6. **Access the application**:
+7. **Access the application**:
 
     Open your browser and go to `http://127.0.0.1:8000/`.
 
