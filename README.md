@@ -120,12 +120,19 @@ CSVPal/
 - **Signup:** **POST** `/api/signup/`
 - **Upload CSV:** **POST** `/api/upload/`
 
+Certainly! Here’s the properly formatted section for testing the application:
+
+---
+
 ## Testing the Application
 
 ### 0. Using Python Shell
 
-```python
+To enter the Django Python shell, run:
+
+```bash
 python manage.py shell
+```
 
 ### 1. Testing Login, Signup, and Logout with Django Test Client
 
