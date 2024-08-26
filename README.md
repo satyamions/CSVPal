@@ -1,6 +1,6 @@
 # CSVPal
 
-CSVPal is a Django-based web application designed to simplify the process of uploading, managing, and manipulating CSV files. The application provides a user-friendly interface for working with CSV files and includes authentication features for secure access.
+CSVPal is a Django-based web application that allows users to log in, sign up, upload CSV files, and manage the data within a user-friendly interface. Users can view, update, insert new rows, and export the latest data as CSV files. The app also supports adding new columns, storing them in the database, and provides APIs for login, signup, and CSV upload.
 
 ## Table of Contents
 
@@ -93,8 +93,42 @@ CSVPal/
 
     Open your browser and go to `http://127.0.0.1:8000/`.
 
-## Usage
+Usage
 
-- **Authentication**: Users can sign up, log in, and log out.
-- **CSV Upload**: Authenticated users can upload CSV files.
-- **View and Manage**: Uploaded CSV files can be viewed and managed through the web interface.
+    Web Interface
+    Sign Up/Login: Sign up or log in to access the application.
+    Upload CSV: Upload a CSV file using the "Upload" button.
+    Manage Data: View the CSV data in a table. You can update existing rows or insert new ones.
+    Export CSV: Click the "Export" button to download the updated CSV file.
+    
+    API Endpoints
+    Login: POST /api/login/
+    Signup: POST /api/signup/
+    Upload CSV: POST /api/upload/
+
+## Troubleshooting
+
+If you encounter issues with SSL certificates when installing dependencies, you can resolve them by following these steps:
+
+1. Install `certifi` using pip with trusted hosts:
+
+    ```bash
+    pip install certifi --trusted-host pypi.org --trusted-host files.pythonhosted.org
+    ```
+
+2. Import `certifi` and check the certificate path:
+
+    ```python
+    import certifi
+    print(certifi.where())
+    ```
+
+3. Set the `REQUESTS_CA_BUNDLE` environment variable:
+
+    - On Windows PowerShell:
+
+      ```bash
+      $env:REQUESTS_CA_BUNDLE=""
+      ```
+
+This should resolve any SSL-related errors you might encounter during setup.
