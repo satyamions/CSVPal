@@ -118,7 +118,7 @@ CSVPal/
 ### API Endpoints
 - **Login:** **POST** `/api/login/`
 - **Signup:** **POST** `/api/signup/`
-- **Upload CSV:** **POST** `/api/upload/`
+- **Upload CSV:** **POST** `/api/upload_csv/`
 
 Certainly! Here’s the properly formatted section for testing the application:
 
@@ -183,7 +183,7 @@ To test the CSV upload functionality, follow these steps:
 
 3. **Configure the Request**:
     - **HTTP Method**: Select `POST`.
-    - **Request URL**: Enter `http://127.0.0.1:8000/api/upload/`.
+    - **Request URL**: Enter `http://127.0.0.1:8000/api/upload_csv/`.
     - **Body**:
       - Select `form-data`.
       - Add a new key with the name `file`.
